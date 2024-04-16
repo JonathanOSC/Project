@@ -13,19 +13,17 @@ Figure 1 shows this model graphically.
 
 ## User Stories
 
-- As a __client_administrator__, I want __to create profiles__, so what __I can administrate/get privacity in the information__.
+- As a __client__, I want __to add products__, so what __I can define the products__.
 
-- As a __client_administrator__, I want __to add products__, so what __I can define the products__.
+- As a __client__, I want __to delete products__, so what __I can remove products__.
 
-- As a __client_administrator__, I want __to delete products__, so what __I can remove products__.
+- As a __client__, I want __to update products__, so what __I can update the info of the  products__.
 
-- As a __client_administrator__, I want __to update products__, so what __I can update the info of the  products__.
+- As a __client__, I want __to delete a sale__, so what __I can correct and sell error__.
 
-- As a __client_administrator__, I want __to delete a sale__, so what __I can correct and sell error__.
+- As a __client__, I want __to edit the sales check__, so what __I can change the information here__.
 
-- As a __client_administrator__, I want __to edit the sales check__, so what __I can change the information here__.
-
-- As a __client_administrator__, I want __to see the month sales__, so what __I can get a preview of the month sales__.
+- As a __client__, I want __to see the month sales__, so what __I can get a preview of the month sales__.
 
 - As a __client__, I want __to make a sale__, so what __I can see the total value and the products here__.
 
@@ -49,9 +47,7 @@ In this case, the backend will be build using python 3.10, and some related tech
 
 ## Entities
 
-- Client: name, email, make_sale(), print_sale(), print_inventory(), start_sales_day(), end_sales_day(), add_spent()
-  
-- Adiminitrator(Client): create_profile(), add_product(), delete_product(), update_product(), delete_sale(), edit_sale(), view_monthly_sales(), track_table_products()
+- Client: name, email, make_sale(), print_sale(), print_inventory(), start_sales_day(), end_sales_day(), add_spent(),  add_product_sale(), delete_product_sale(), delete_sale(), view_monthly_sales(), track_table_products()
 
 - Product: product_id, name, price, quantity_available, update_price(), update_quantity()
 
@@ -61,7 +57,6 @@ In this case, the backend will be build using python 3.10, and some related tech
 
 ## Processes
 
-- Create profiles:
 - Add products:
 - Delete products:
 - Update products:
