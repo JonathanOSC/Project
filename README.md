@@ -75,8 +75,7 @@ In this case, the backend will be build using python 3.10, and some related tech
 - Add spent:
 - See and print inventory:
 
-
-
+mediator but...
 
 
 
