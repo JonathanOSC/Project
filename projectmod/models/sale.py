@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, Float, DateTime
-from projectmod.db import Base
+from projectmod.database.db import Base
 from datetime import datetime
 from pydantic import BaseModel
 from typing import List, Dict, Union

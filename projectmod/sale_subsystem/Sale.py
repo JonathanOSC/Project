@@ -11,7 +11,7 @@ from projectmod.models.product_sale import ProductSaleCreate
 from projectmod.models.sale import SaleModel
 from typing import List
 from projectmod.models.product import ProductModel
-from projectmod.db import get_database_session
+from projectmod.database.db import get_database_session
 from sqlalchemy import MetaData, Table, Column, Integer, Float, DateTime
 from dotenv import load_dotenv
 

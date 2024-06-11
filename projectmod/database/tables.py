@@ -10,5 +10,5 @@ tables_db = Table(
     Column("name", String(50)),
 )   
 
-
-metadata.create_all(engine)
+def create_tables():
+    metadata.create_all(engine)
