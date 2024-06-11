@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from projectmod.models.table import TableCreate
+from projectmod.models.table import TableCreate, TableAddProduct
 from projectmod.services.tables import TableService
 from projectmod.database.db import get_database_session
 
@@ -17,4 +17,16 @@ async def get_tables():
 async def create_table(table: TableCreate):
     table_service = TableService(db)
     result = table_service.create_table(table)
+    return result
+
+@router.get("/{table_id}")
+async def get_table(table_id: int):
+    table_service = TableService(db)
+    result = table_service.get_table(table_id)
+    return result
+
+@router.post("/{table_id}")
+async def add_product_to_table(table_id: int, data: TableAddProduct):
+    table_service = TableService(db)
+    result = table_service.add_product_to_table(table_id, data.product_id, data.quantity)
     return result
