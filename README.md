@@ -21,21 +21,9 @@ Figure 1 shows this model graphically.
 
 - As a __client__, I want __to delete a sale__, so what __I can correct and sell error__.
 
-- As a __client__, I want __to edit the sales check__, so what __I can change the information here__.
-
-- As a __client__, I want __to see the month/dar sales__, so what __I can get a preview of the monthly/day sales__.
-
 - As a __client__, I want __to make a sale__, so what __I can see the total value and the quantity of products here__.
 
-- As a __client__, I want __to print a sale__, so what __I can give to the client the sales check__.
-
-- As a __client__, I want __to see and print the inventory__, so what __I can keep a daily report to corroborate info__.
-
-- As a __client__, I want __start a sales day__, so what __I can make the start daily sales__.
-
-- As a __client__, I want __end a sales day__, so what __I can make the end daily sales and receive a report of the sales__.
-
-- As a __client__, I want __add a spent__, so what __I can keep a report of this__.
+- As a __client__, I want __to see the inventory__, so what __I can keep a daily report to corroborate info__.
 
 - As a __client__, I want __to keep track of the products on each table__, so what __I can have a report of this__.
 
