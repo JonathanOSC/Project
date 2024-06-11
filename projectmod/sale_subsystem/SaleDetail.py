@@ -4,7 +4,7 @@
     Author: Jonathan
 """
 
-from .Product import Product
+from projectmod.models.product import Product
 
 
 class SaleDetail:

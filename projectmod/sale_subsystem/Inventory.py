@@ -9,8 +9,7 @@ from sqlalchemy import MetaData, Table, Column, Integer, String, Float, create_e
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from dotenv import load_dotenv
-from projectmod.models.product import ProductModel
-from .Product import Product
+from projectmod.models.product import ProductModel, Product
 
 Base = declarative_base()
 metadata = MetaData()
@@ -23,6 +22,7 @@ inventory_db = Table(
     Column("price", Float),
     Column("quantity_available", Integer),
 )   
+
 
 load_dotenv()
 
