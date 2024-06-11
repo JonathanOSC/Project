@@ -7,7 +7,7 @@ from .Inventory import Inventory
 from datetime import datetime
 from .GeneralInfo import GeneralInfo
 from .SaleDetail import SaleDetail
-from projectmod.models.product_sale import ProductSaleCreate
+from projectmod.models.product_sale import ProductSaleCreate, ProductSaleModel
 from projectmod.models.sale import SaleModel
 from typing import List
 from projectmod.models.product import ProductModel
@@ -61,6 +61,14 @@ class Sale:
             result = self.session.query(ProductModel.price).filter(ProductModel.id == product_id).first()
             self.total_value += result[0] * product.quantity
             
+            query_products_sales = products_sales_db.insert().values(
+                
+                product_id=product.id,
+                product_quantity=product.quantity,
+                
+            )
+        self.session.execute(query_products_sales)
+            
         query = sales_history_db.insert().values(
             total_value=self.total_value, 
             time=self.time
@@ -68,19 +76,16 @@ class Sale:
         result = self.session.execute(query)
         self.session.commit()
             
-        # result.inserted_primary_key[0]
-            
-        for product in self.products_sale:
-            query_products_sales = products_sales_db.insert().values(
-                
-                product_id=product.id,
-                product_quantity=product.quantity,
-                sale_id=result.inserted_primary_key[0]
-            )
-        
-        
-        self.session.execute(query_products_sales)
+        query_primary_key = products_sales_db.insert().values(
+            sale_id = result.inserted_primary_key[0]).where(products_sales_db.order_by(products_sales_db.id.desc()).limit(1).first()
+        )
+        self.session.execute(query_primary_key)
         self.session.commit()
+            
+            
+        
+        
+        
         
         return result.inserted_primary_key[0]
     
@@ -113,7 +118,7 @@ class Sale:
         self.sale_details = [detail for detail in self.sale_details if detail['sale_id_detail'] != sale_id_detail]
         
     def get_all_sales(self):
-        return self.session.query(sales_history_db).all()
+        return self.session.query(ProductSaleModel).all()
     
     def get_all_products_sales(self):
         return self.session.query(products_sales_db).all()
