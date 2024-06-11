@@ -3,6 +3,7 @@
 import os
 # from core_subsystem.user import User+
 from fastapi import FastAPI
+from pydantic import BaseModel
 # from pydantic import BaseModel, SecretStr
 # from dotenv import load_dotenv
 # from sqlalchemy import create_engine
@@ -13,7 +14,7 @@ app = FastAPI(
     description="This is an api web to use services for sales managment.",
 )
 
-class LoginInfo:
+class LoginInfo(BaseModel):
     username: str
     password: str
 
