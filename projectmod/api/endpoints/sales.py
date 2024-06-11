@@ -33,3 +33,9 @@ async def get_sales():
     
     return sale.get_all_sales()
 
+@router.get("/{sale_id}")
+async def get_products_sale(sale_id: int):
+    sale = Sale()
+    
+    return sale.get_all_products_sales(sale_id)
+

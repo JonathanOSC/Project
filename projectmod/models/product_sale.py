@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, Float
-from projectmod.db import Base
+from projectmod.database.db import Base
 from pydantic import BaseModel
 
 
@@ -7,7 +7,6 @@ class ProductSaleModel(Base):
     __tablename__ = "products_sales"
     id = Column(Integer, primary_key=True, autoincrement=True)
     product_id = Column(Integer)
-    product_price = Column(Float)
     product_quantity = Column(Integer)
     sale_id = Column(Integer)
     

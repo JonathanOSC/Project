@@ -10,6 +10,8 @@ Session = sessionmaker(bind=engine)
 
 Base = declarative_base()
 
+
+
 def get_database_session():
     db = Session()
     try:

@@ -11,8 +11,8 @@ from projectmod.models.product_sale import ProductSaleCreate
 from projectmod.models.sale import SaleModel
 from typing import List
 from projectmod.models.product import ProductModel
-from projectmod.db import get_database_session
-from sqlalchemy import MetaData, Table, Column, Integer, Float, DateTim
+from projectmod.database.db import get_database_session
+from sqlalchemy import MetaData, Table, Column, Integer, Float, DateTime
 from dotenv import load_dotenv
 
 
@@ -28,6 +28,14 @@ sales_history_db = Table(
     Column("time", DateTime),
 )   
 
+products_sales_db = Table(
+    "products_sales",
+    metadata,
+    Column("id", Integer, primary_key=True, autoincrement=True),
+    Column("product_id", Integer),
+    Column("product_quantity", Integer),
+    Column("sale_id", Integer),
+)
 
 load_dotenv()
 
@@ -57,13 +65,28 @@ class Sale:
             total_value=self.total_value, 
             time=self.time
         )
-        self.session.execute(query)
+        result = self.session.execute(query)
         self.session.commit()
             
+        # result.inserted_primary_key[0]
             
-            
-        return sales_history_db.select(sales_history_db.c.sale_id).order_by(sales_history_db.c.sale_id.desc()).first()[0]
-            
+        for product in self.products_sale:
+            query_products_sales = products_sales_db.insert().values(
+                
+                product_id=product.id,
+                product_quantity=product.quantity,
+                sale_id=result.inserted_primary_key[0]
+            )
+        
+        
+        self.session.execute(query_products_sales)
+        self.session.commit()
+        
+        return result.inserted_primary_key[0]
+    
+        
+        
+        
             
             # product = inventory.get_product(product_id)
             
@@ -91,5 +114,9 @@ class Sale:
         
     def get_all_sales(self):
         return self.session.query(sales_history_db).all()
+    
+    def get_all_products_sales(self):
+        return self.session.query(products_sales_db).all()
+    
 
 
