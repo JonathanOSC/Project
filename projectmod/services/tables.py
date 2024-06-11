@@ -34,14 +34,25 @@ class TableService:
   
     def add_product_to_table(self, table_id: int, product_id: int, quantity: int):
         product_table = self.db.query(ProductTableModel).filter_by(product_id=product_id, table_id=table_id).first()
-    
+        product = self.db.query(ProductModel).filter_by(id=product_id).first()
+        #CORRECT
 
         if product_table:
-            product_table.quantity += quantity
-            self.db.query(ProductTableModel).filter_by(product_id=product_id, table_id=table_id).update({"quantity": product_table.quantity})
+
+            if product.quantity_available < quantity:
+                return "Not enough quantity available"
+            
+            else:
+
+                product_table.quantity += quantity
+                self.db.query(ProductTableModel).filter_by(product_id=product_id, table_id=table_id).update({"quantity": product_table.quantity})
         else:
-            product_table = ProductTableModel(product_id=product_id, table_id=table_id, quantity=quantity)
-            self.db.add(product_table)
+            if product.quantity_available < quantity:
+                return "Not enough quantity available"
+            
+            else:
+                product_table = ProductTableModel(product_id=product_id, table_id=table_id, quantity=quantity)
+                self.db.add(product_table)
     
         self.db.commit()
         self.db.refresh(product_table)
