@@ -1,6 +1,5 @@
 # SERVICIOS WEB
 
-import os
 # from core_subsystem.user import User+
 from fastapi import FastAPI
 from pydantic import BaseModel
