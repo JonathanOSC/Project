@@ -3,7 +3,7 @@
 
     Author: Jonathan
 """
-
+from .Sale import Sale
 
 class Table:
     def __init__(self, table_id: int, sale: Sale):

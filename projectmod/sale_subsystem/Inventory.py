@@ -5,7 +5,7 @@
 """
 import os
 from pydantic import BaseModel
-from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, Float, Boolean
+from sqlalchemy import MetaData, Table, Column, Integer, String, Float, create_engine
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
 
@@ -22,7 +22,8 @@ inventory_db = Table(
 
 load_dotenv()
 
-DATABASE_CONNECTION = f"postgresql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_URL')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
+DATABASE_CONNECTION = "sqlite:///inventory.db"
+# DATABASE_CONNECTION = f"postgresql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_URL')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
 db_conn = create_engine(DATABASE_CONNECTION)
 conn = db_conn.connect()
 Session = sessionmaker(bind=db_conn)

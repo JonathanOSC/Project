@@ -4,7 +4,7 @@
     Author: Jonathan
 """
 
-
+from .Product import Product
 
 
 class SaleDetail:

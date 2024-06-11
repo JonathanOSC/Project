@@ -3,6 +3,11 @@
 
     Author: Jonathan
 """
+from .Inventory import Inventory
+from datetime import datetime as DateTime
+from .GeneralInfo import GeneralInfo
+from .SaleDetail import SaleDetail
+
 
 inventory = Inventory()
 
