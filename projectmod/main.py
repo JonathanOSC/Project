@@ -31,5 +31,5 @@ def login(body: LoginInfo) -> bool:
     inventory.add_product(producto)
     print(inventory.get_all_products())
     
-    return True
+    return True 
         
