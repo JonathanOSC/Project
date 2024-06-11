@@ -60,18 +60,18 @@ class Sale:
             product_id = product.id
             result = self.session.query(ProductModel.price).filter(ProductModel.id == product_id).first()
             self.total_value += result[0] * product.quantity
-            #Add product to the list of products sold
-            self.products_sale.append(product)
-            
-            
-        query_products_sales = products_sales_db.insert().values(
-                
-            product_id = product.id,
-            product_quantity = product.quantity,
-                
-        )
-        self.session.execute(query_products_sales)
+                                                                                                                                                    #Add product to the list of products sold
+                                                                                                                                                    # self.products_sale.append(product)
+                                                                                                                                                    
+                                                                                                                                                    
+                                                                                                                                                # query_products_sales = products_sales_db.insert().values(
+                                                                                                                                                #     product_id = product.id,
+                                                                                                                                                #     product_quantity = product.quantity,
+                                                                                                                                                #     sale_id = self.sale_id,
+                                                                                                                                                # )
+                                                                                                                                                # self.session.execute(query_products_sales)
         
+        #Sales History Add
         query = sales_history_db.insert().values(
             total_value=self.total_value, 
             time=self.time
@@ -79,18 +79,18 @@ class Sale:
         result = self.session.execute(query)
         self.session.commit()
             
-        query_primary_key = products_sales_db.insert().values(
-            sale_id = result.inserted_primary_key[0]
-        )
-        self.session.execute(query_primary_key)
+        #Products Sales Add
+        for product in self.products_sale:
+            query_primary_key = products_sales_db.insert().values(
+                sale_id = result.inserted_primary_key[0],
+                product_id = product.id,
+                product_quantity = product.quantity,
+            )
+            self.session.execute(query_primary_key)
         self.session.commit()
-            
-            
         
-        
-        
-        
-        return result.inserted_primary_key[0]
+        # return result.inserted_primary_key[0]
+        return self.total_value
     
         
         
@@ -102,29 +102,32 @@ class Sale:
             
             # self.sales_history.append(self.sale_id)
 
-    def print_sale_check(self):
-        """ Prints the sale check """
-        print(f"Sale ID: {self.sale_id}")
-        print(f"Organization Name: {self.info_organization.name_organization}")
-        print(f"Address: {self.info_organization.address}")
-        print(f"NIT: {self.info_organization.nit}")
-        print(f"Time: {self.time}")
-        for detail in self.sale_details:
-            print(f"Product ID: {detail['product_id']}, Quantity: {detail['product_quantity']}, Price: {detail['product_price']}")
-        print(f"Total Value: {self.total_value}")
+    # def print_sale_check(self):
+    #     """ Prints the sale check """
+    #     print(f"Sale ID: {self.sale_id}")
+    #     print(f"Organization Name: {self.info_organization.name_organization}")
+    #     print(f"Address: {self.info_organization.address}")
+    #     print(f"NIT: {self.info_organization.nit}")
+    #     print(f"Time: {self.time}")
+    #     for detail in self.sale_details:
+    #         print(f"Product ID: {detail['product_id']}, Quantity: {detail['product_quantity']}, Price: {detail['product_price']}")
+    #     print(f"Total Value: {self.total_value}")
 
-    def add_sale_detail(self, sale_detail: SaleDetail):
-        self.sale_details.append(sale_detail.get_detail_sale())
+    # def add_sale_detail(self, sale_detail: SaleDetail):
+    #     self.sale_details.append(sale_detail.get_detail_sale())
 
-    def delete_sale_detail(self):
-        """ Deletes a sale detail from the sale """
-        self.sale_details = [detail for detail in self.sale_details if detail['sale_id_detail'] != sale_id_detail]
+    # def delete_sale_detail(self):
+    #     """ Deletes a sale detail from the sale """
+    #     self.sale_details = [detail for detail in self.sale_details if detail['sale_id_detail'] != sale_id_detail]
         
     def get_all_sales(self):
-        return self.session.query(ProductSaleModel).all()
+        return self.session.query(SaleModel).all()
     
-    def get_all_products_sales(self):
-        return self.session.query(products_sales_db).all()
+    def get_all_products_sales(self, sale_id: int):
+
+        
+
+        return self.session.query(ProductSaleModel).filter(ProductSaleModel.sale_id == sale_id).all()
     
 
 

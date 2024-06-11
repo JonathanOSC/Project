@@ -1,5 +1,6 @@
 from fastapi import APIRouter
-from projectmod.sale_subsystem import Inventory, Product
+from projectmod.sale_subsystem import Inventory
+from projectmod.models.product import Product
 from pydantic import BaseModel
 
 

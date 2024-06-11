@@ -5,7 +5,7 @@ from pydantic import BaseModel
 from typing import List, Dict, Union
 
 class SaleModel(Base):
-    __tablename__ = "ventas"
+    __tablename__ = "sales_history"
     sale_id = Column(Integer, primary_key=True, autoincrement=True)
     total_value = Column(Float)
     time = Column(DateTime)
