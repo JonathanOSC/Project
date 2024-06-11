@@ -13,13 +13,13 @@ app = FastAPI(
     description="This is an api web to use services for sales managment.",
 )
 
-class LoginInfo:
-    username: str
-    password: str
+# class LoginInfo:
+#     username: str
+#     password: str
 
 
 @app.post("/login")
-def login(body: LoginInfo) -> bool:
+def login(body) -> bool:
     """ This function is used to login in the system """
     print(body)
     return True
