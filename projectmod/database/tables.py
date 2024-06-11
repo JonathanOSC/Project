@@ -8,7 +8,16 @@ tables_db = Table(
     metadata,
     Column("id", Integer, primary_key=True, autoincrement=True),
     Column("name", String(50)),
-)   
+)
+
+products_table_db = Table(
+    "products_table",
+    metadata,
+    Column("id", Integer, primary_key=True, autoincrement=True),
+    Column("product_id", Integer),
+    Column("table_id", Integer),
+    Column("quantity", Integer),
+)
 
 products_sales_db = Table(
     "products_sales",
