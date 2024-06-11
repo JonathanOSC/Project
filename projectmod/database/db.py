@@ -13,6 +13,6 @@ Base = declarative_base()
 def get_database_session():
     db = Session()
     try:
-      yield db
+      return db
     finally:
       db.close()
