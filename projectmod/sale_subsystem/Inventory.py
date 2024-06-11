@@ -7,9 +7,11 @@ import os
 from pydantic import BaseModel
 from sqlalchemy import MetaData, Table, Column, Integer, String, Float, create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
 from dotenv import load_dotenv
 from .Product import Product
 
+Base = declarative_base()
 metadata = MetaData()
 
 inventory_db = Table(
@@ -21,16 +23,24 @@ inventory_db = Table(
     Column("quantity_available", Integer),
 )
 
+class Product(Base):
+    __tablename__ = "products"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String(50))
+    price = Column(Float)
+    quantity_available = Column(Integer)
+    
+
 load_dotenv()
 
 DATABASE_CONNECTION = "sqlite:///inventory.db"
 # DATABASE_CONNECTION = f"postgresql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_URL')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
-db_conn = create_engine(DATABASE_CONNECTION)
-conn = db_conn.connect()
-Session = sessionmaker(bind=db_conn)
+engine = create_engine(DATABASE_CONNECTION)
+conn = engine.connect()
+Session = sessionmaker(bind=engine)
 session = Session()
 
-metadata.create_all(db_conn)
+metadata.create_all(engine)
 
 
 class InventoryDE(BaseModel):
@@ -57,7 +67,6 @@ class Inventory:
         )
         session.execute(query)
         session.commit()
-        return self.get_all_products()
         
 
         # """ This method adds a product to the inventory """
@@ -72,7 +81,8 @@ class Inventory:
         """ This method removes a product from the inventory """
 
         query = inventory_db.delete().where(inventory_db.c.id == product_id)
-        db_conn.execute(query) #Maybe an error here
+        session.execute(query) 
+        session.commit()
 
         # """ This method removes a product from the inventory """
 
@@ -102,16 +112,16 @@ class Inventory:
     def get_all_products(self):
     
         """ This method returns all the products in the inventory """
-        query = inventory_db.select()
+        # query = inventory_db.select()
     
-        return print(db_conn.execute(query).fetchall())
+        return session.query(Product).all()
 
     def get_product(self, product_id: int):
 
         """ This method returns a product from the inventory """
 
         query = inventory_db.select().where(inventory_db.c.id == product_id)
-        return db_conn.execute(query).fetchone()
+        return session.execute(query).fetchone()
 
         # if product_id in self.products:
         #     return self.products[product_id]
