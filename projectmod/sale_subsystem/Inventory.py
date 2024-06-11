@@ -9,6 +9,7 @@ from sqlalchemy import MetaData, Table, Column, Integer, String, Float, create_e
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from dotenv import load_dotenv
+from projectmod.models.product import ProductModel
 from .Product import Product
 
 Base = declarative_base()
@@ -21,15 +22,7 @@ inventory_db = Table(
     Column("name", String(50)),
     Column("price", Float),
     Column("quantity_available", Integer),
-)
-
-class Product(Base):
-    __tablename__ = "products"
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String(50))
-    price = Column(Float)
-    quantity_available = Column(Integer)
-    
+)   
 
 load_dotenv()
 
@@ -114,7 +107,7 @@ class Inventory:
         """ This method returns all the products in the inventory """
         # query = inventory_db.select()
     
-        return session.query(Product).all()
+        return session.query(ProductModel).all()
 
     def get_product(self, product_id: int):
 
