@@ -5,8 +5,6 @@
 """
 from .Inventory import Inventory
 from datetime import datetime
-from .GeneralInfo import GeneralInfo
-from .SaleDetail import SaleDetail
 from projectmod.models.product_sale import ProductSaleCreate, ProductSaleModel
 from projectmod.models.sale import SaleModel
 from typing import List
@@ -60,16 +58,6 @@ class Sale:
             product_id = product.id
             result = self.session.query(ProductModel.price).filter(ProductModel.id == product_id).first()
             self.total_value += result[0] * product.quantity
-                                                                                                                                                    #Add product to the list of products sold
-                                                                                                                                                    # self.products_sale.append(product)
-                                                                                                                                                    
-                                                                                                                                                    
-                                                                                                                                                # query_products_sales = products_sales_db.insert().values(
-                                                                                                                                                #     product_id = product.id,
-                                                                                                                                                #     product_quantity = product.quantity,
-                                                                                                                                                #     sale_id = self.sale_id,
-                                                                                                                                                # )
-                                                                                                                                                # self.session.execute(query_products_sales)
         
         #Sales History Add
         query = sales_history_db.insert().values(
@@ -89,44 +77,14 @@ class Sale:
             self.session.execute(query_primary_key)
         self.session.commit()
         
-        # return result.inserted_primary_key[0]
         return self.total_value
     
-        
-        
-        
-            
-            # product = inventory.get_product(product_id)
-            
-            # product.quantity_available -= detail['product_quantity']
-            
-            # self.sales_history.append(self.sale_id)
-
-    # def print_sale_check(self):
-    #     """ Prints the sale check """
-    #     print(f"Sale ID: {self.sale_id}")
-    #     print(f"Organization Name: {self.info_organization.name_organization}")
-    #     print(f"Address: {self.info_organization.address}")
-    #     print(f"NIT: {self.info_organization.nit}")
-    #     print(f"Time: {self.time}")
-    #     for detail in self.sale_details:
-    #         print(f"Product ID: {detail['product_id']}, Quantity: {detail['product_quantity']}, Price: {detail['product_price']}")
-    #     print(f"Total Value: {self.total_value}")
-
-    # def add_sale_detail(self, sale_detail: SaleDetail):
-    #     self.sale_details.append(sale_detail.get_detail_sale())
-
-    # def delete_sale_detail(self):
-    #     """ Deletes a sale detail from the sale """
-    #     self.sale_details = [detail for detail in self.sale_details if detail['sale_id_detail'] != sale_id_detail]
-        
     def get_all_sales(self):
+        """ Returns all sales """
         return self.session.query(SaleModel).all()
     
     def get_all_products_sales(self, sale_id: int):
-
-        
-
+        """ Returns all products sold in a sale """
         return self.session.query(ProductSaleModel).filter(ProductSaleModel.sale_id == sale_id).all()
     
 

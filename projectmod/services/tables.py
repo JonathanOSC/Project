@@ -12,7 +12,7 @@ class TableService:
     def get_all_tables(self):
         return self.db.query(TableModel).all()
   
-    def get_table(self, table_id):
+    def get_table(self, table_id: int):
         result = self.db.query(TableModel).filter(TableModel.id == table_id).first()
         result.total = 0
         result.products = self.db.query(ProductTableModel).filter(ProductTableModel.table_id == table_id).all()
