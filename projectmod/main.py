@@ -5,6 +5,7 @@ import os
 from fastapi import FastAPI
 from pydantic import BaseModel
 from .sale_subsystem import Inventory
+from .sale_subsystem import Product
 # from pydantic import BaseModel, SecretStr
 # from dotenv import load_dotenv
 # from sqlalchemy import create_engine
@@ -16,17 +17,17 @@ app = FastAPI(
 )
 
 class LoginInfo(BaseModel):
-    product_name: str
+    name: str
     price: float
-
 
 @app.post("/login")
 def login(body: LoginInfo) -> bool:
     """ This function is used to login in the system """
     print(body)
     inventory = Inventory()
-    inventory.add_product(body)
+    producto = Product(body.name, body.price, 10)
+    inventory.add_product(producto)
+    print(inventory.get_all_products())
     
     return True
-    # return user_info.username == "admin" and user_info.password == "admin"
         
