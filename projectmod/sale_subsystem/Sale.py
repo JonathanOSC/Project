@@ -12,7 +12,7 @@ from projectmod.models.sale import SaleModel
 from typing import List
 from projectmod.models.product import ProductModel
 from projectmod.db import get_database_session
-from sqlalchemy import MetaData, Table, Column, Integer, Float, DateTime
+from sqlalchemy import MetaData, Table, Column, Integer, Float, DateTim
 from dotenv import load_dotenv
 
 
@@ -30,6 +30,8 @@ sales_history_db = Table(
 
 
 load_dotenv()
+
+
 
 class Sale:
     """" This class represents a sale of products """
