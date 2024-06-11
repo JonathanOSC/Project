@@ -60,15 +60,18 @@ class Sale:
             product_id = product.id
             result = self.session.query(ProductModel.price).filter(ProductModel.id == product_id).first()
             self.total_value += result[0] * product.quantity
+            #Add product to the list of products sold
+            self.products_sale.append(product)
             
-            query_products_sales = products_sales_db.insert().values(
+            
+        query_products_sales = products_sales_db.insert().values(
                 
-                product_id=product.id,
-                product_quantity=product.quantity,
+            product_id = product.id,
+            product_quantity = product.quantity,
                 
-            )
+        )
         self.session.execute(query_products_sales)
-            
+        
         query = sales_history_db.insert().values(
             total_value=self.total_value, 
             time=self.time
@@ -77,7 +80,7 @@ class Sale:
         self.session.commit()
             
         query_primary_key = products_sales_db.insert().values(
-            sale_id = result.inserted_primary_key[0]).where(products_sales_db.order_by(products_sales_db.id.desc()).limit(1).first()
+            sale_id = result.inserted_primary_key[0]
         )
         self.session.execute(query_primary_key)
         self.session.commit()
