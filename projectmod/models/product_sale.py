@@ -7,7 +7,6 @@ class ProductSaleModel(Base):
     __tablename__ = "products_sales"
     id = Column(Integer, primary_key=True, autoincrement=True)
     product_id = Column(Integer)
-    product_price = Column(Float)
     product_quantity = Column(Integer)
     sale_id = Column(Integer)
     

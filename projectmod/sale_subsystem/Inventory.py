@@ -22,7 +22,7 @@ inventory_db = Table(
     Column("price", Float),
     Column("quantity_available", Integer),
 )   
-
+#SSSS
 
 load_dotenv()
 
