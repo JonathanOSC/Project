@@ -8,6 +8,7 @@ from pydantic import BaseModel
 from sqlalchemy import MetaData, Table, Column, Integer, String, Float, create_engine
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
+from .Product import Product
 
 metadata = MetaData()
 
@@ -45,17 +46,18 @@ class Inventory:
     def __init__(self):
         self.products = {}
 
-    def add_product(self, product):
+    def add_product(self, product: Product):
 
         """ This method adds a product to the inventory """
 
         query = inventory_db.insert().values(
-            name=product.name, 
-            price=product.price, 
+            name=product.product_name, 
+            price=product.product_price, 
             quantity_available=product.quantity_available
         )
         session.execute(query)
         session.commit()
+        
 
         # """ This method adds a product to the inventory """
 
@@ -95,6 +97,13 @@ class Inventory:
         #             raise ValueError(f"Product does not have attribute {key}")
         # else:
         #     raise ValueError(f"Product with id {product_id} does not exist")
+
+    def get_all_products(self):
+    
+        """ This method returns all the products in the inventory """
+        query = inventory_db.select()
+    
+        return db_conn.execute(query).fetchall()
 
     def get_product(self, product_id: int):
 
