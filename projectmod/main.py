@@ -16,7 +16,7 @@ app = FastAPI(
     description="This is an api web to use services for sales managment.",
 )
 
-app.include_router(api_router, prefix="/api")
+app.include_router(api_router.api_router, prefix="/api")
 
 class LoginInfo(BaseModel):
     name: str

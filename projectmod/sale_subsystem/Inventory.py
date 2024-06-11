@@ -57,6 +57,7 @@ class Inventory:
         )
         session.execute(query)
         session.commit()
+        return self.get_all_products()
         
 
         # """ This method adds a product to the inventory """
@@ -103,7 +104,7 @@ class Inventory:
         """ This method returns all the products in the inventory """
         query = inventory_db.select()
     
-        return db_conn.execute(query).fetchall()
+        return print(db_conn.execute(query).fetchall())
 
     def get_product(self, product_id: int):
 
